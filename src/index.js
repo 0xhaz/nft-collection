@@ -2,15 +2,19 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import '../node_modules/normalize.css/normalize.css';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Mint from './components/sections/Mint/Mint';
 // import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-    <App />
-    </BrowserRouter>
+    <Router>
+      <Routes>
+      <Route path ='/' element={<App />}/>
+      <Route path ='/mint' element={<Mint />}/>
+      </Routes>
+    </Router>
   </React.StrictMode>
 );
 

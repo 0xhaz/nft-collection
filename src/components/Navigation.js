@@ -2,11 +2,14 @@ import styled from "styled-components";
 import Button from "./Button";
 import Logo from "./Logo";
 import React, { useState } from "react";
+import { Link, Route, Router, Routes, useNavigate } from "react-router-dom";
+// import Mint from "./sections/Mint/Mint";
 
 const Section = styled.section`
   width: 100vw;
   background-color: ${(props) => props.theme.body};
 `;
+
 const NavBar = styled.nav`
   display: flex;
   justify-content: space-between;
@@ -133,6 +136,11 @@ const HamburgerMenu = styled.span`
 
 const Navigation = () => {
   const [click, setClick] = useState(false);
+  const mint = useNavigate();
+
+  const mintPage = () => {
+    mint('/mint');
+  }
 
   const scrollTo = (id) => {
     let element = document.getElementById(id);
@@ -154,12 +162,13 @@ const Navigation = () => {
           &nbsp;
         </HamburgerMenu>
         <Menu click={click}>
-          <MenuItem onClick={() => scrollTo("home")}>Home</MenuItem>
+          <MenuItem onClick={() => scrollTo("home")} Link to='/'>Home</MenuItem>
           <MenuItem onClick={() => scrollTo("about")}>About</MenuItem>
           <MenuItem onClick={() => scrollTo("roadmap")}>Roadmap</MenuItem>
           <MenuItem onClick={() => scrollTo("showcase")}>Showcase</MenuItem>
           <MenuItem onClick={() => scrollTo("team")}>Team</MenuItem>
           <MenuItem onClick={() => scrollTo("faq")}>Faq</MenuItem>
+          <MenuItem onClick={mintPage}>Mint</MenuItem>
           <MenuItem>
             <div className="mobile">
               <Button text="Connect Wallet" link="https://google.com" />

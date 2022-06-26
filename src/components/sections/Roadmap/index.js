@@ -1,17 +1,13 @@
-import React, { useLayoutEffect, useRef } from "react";
 import styled from "styled-components";
-import DrawSvg from "../DrawSvg";
-import ScrollTrigger from "gsap/ScrollTrigger";
-import gsap from "gsap";
 
-const Section = styled.section`
+export const Section = styled.section`
   min-height: 100vh;
   width: 100vw;
   background-color: ${(props) => props.theme.body};
   position: relative;
 `;
 
-const Title = styled.h1`
+export const Title = styled.h1`
   font-size: ${(props) => props.theme.fontxxl};
   text-transform: capitalize;
   color: ${(props) => props.theme.text};
@@ -27,7 +23,7 @@ const Title = styled.h1`
   }
 `;
 
-const Container = styled.div`
+export const Container = styled.div`
   width: 70%;
   height: 200vh;
   background-color: ${(props) => props.theme.body};
@@ -45,12 +41,13 @@ const Container = styled.div`
   }
 `;
 
-const SvgContainer = styled.div`
+export const SvgContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
 `;
-const Items = styled.ul`
+
+export const Items = styled.ul`
   list-style: none;
   width: 100%;
   height: 100%;
@@ -104,7 +101,7 @@ const Items = styled.ul`
   }
 `;
 
-const Item = styled.li`
+export const Item = styled.li`
   width: 100%;
   height: 100%;
   display: flex;
@@ -114,7 +111,7 @@ const Item = styled.li`
   }
 `;
 
-const ItemContainer = styled.div`
+export const ItemContainer = styled.div`
   width: 40%;
   height: fit-content;
   padding: 1rem;
@@ -125,7 +122,7 @@ const ItemContainer = styled.div`
   }
 `;
 
-const Box = styled.p`
+export const Box = styled.p`
   height: fit-content;
   background-color: ${(props) => props.theme.carouselColor};
   color: ${(props) => props.theme.text};
@@ -134,7 +131,7 @@ const Box = styled.p`
   border: 1px solid ${(props) => props.theme.text};
 `;
 
-const SubTitle = styled.span`
+export const SubTitle = styled.span`
   display: block;
   font-size: ${(props) => props.theme.fontxl};
   text-transform: capitalize;
@@ -146,7 +143,7 @@ const SubTitle = styled.span`
   }
 `;
 
-const Text = styled.span`
+export const Text = styled.span`
   display: block;
   font-size: ${(props) => props.theme.fontsm};
   text-transform: capitalize;
@@ -159,7 +156,7 @@ const Text = styled.span`
   }
 `;
 
-const RoadMapItem = ({ title, subtext, addToRef }) => {
+export const RoadMapItem = ({ title, subtext, addToRef }) => {
   return (
     <Item ref={addToRef}>
       <ItemContainer>
@@ -171,82 +168,3 @@ const RoadMapItem = ({ title, subtext, addToRef }) => {
     </Item>
   );
 };
-
-const Roadmap = () => {
-  const revealRefs = useRef([]);
-  revealRefs.current = [];
-  gsap.registerPlugin(ScrollTrigger);
-
-  const addToRefs = (el) => {
-    if (el && !revealRefs.current.includes(el)) {
-      revealRefs.current.push(el);
-    }
-  };
-
-  useLayoutEffect(() => {
-    let t1 = gsap.timeline();
-    revealRefs.current.forEach((el, index) => {
-      t1.fromTo(
-        el.childNodes[0],
-        {
-          y: "0",
-        },
-        {
-          y: "-30%",
-
-          ScrollTrigger: {
-            id: `section-${index + 1}`,
-            trigger: el,
-            start: "top center+=200px",
-            end: "bottom center",
-            scrub: true,
-            // markers: true,
-          },
-        }
-      );
-    });
-
-    return () => {};
-  }, []);
-
-  return (
-    <Section id="roadmap">
-      <Title>Roadmap</Title>
-      <Container>
-        <SvgContainer>
-          <DrawSvg />
-        </SvgContainer>
-        <Items>
-          <Item>&nbsp;</Item>
-          <RoadMapItem
-            addToRef={addToRefs}
-            title="Grand Opening"
-            subtext="Lorem Ipsum Dolor Sit Amet Consectetur, Adipisicing Elit. At Repellat Placeat, Adipisicing Elit. At Repellat Placeat"
-          />
-          <RoadMapItem
-            addToRef={addToRefs}
-            title="Great Benefits"
-            subtext="Lorem Ipsum Dolor Sit Amet Consectetur, Adipisicing Elit. At Repellat Placeat, Adipisicing Elit. At Repellat Placeat."
-          />
-          <RoadMapItem
-            addToRef={addToRefs}
-            title="Early Access"
-            subtext="Lorem Ipsum Dolor Sit Amet Consectetur, Adipisicing Elit. At Repellat Placeat, Adipisicing Elit. At Repellat Placeat."
-          />
-          <RoadMapItem
-            addToRef={addToRefs}
-            title="New Merch"
-            subtext="Lorem Ipsum Dolor Sit Amet Consectetur, Adipisicing Elit. At Repellat Placeat, Adipisicing Elit. At Repellat Placeat."
-          />
-          <RoadMapItem
-            addToRef={addToRefs}
-            title="Holders Ranking"
-            subtext="Lorem Ipsum Dolor Sit Amet Consectetur, Adipisicing Elit. At Repellat Placeat, Adipisicing Elit. At Repellat Placeat."
-          />
-        </Items>
-      </Container>
-    </Section>
-  );
-};
-
-export default Roadmap;
